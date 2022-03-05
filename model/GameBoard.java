@@ -93,15 +93,7 @@ void playGame(GameSpace[][] gameBoard){
 
         // check for a win, call checkWin method
 
-
-
-        
-
-       
-         
-        
-        gameOver = true;
-      
+        gameOver = checkWin(gameBoard, choice);
 
     }
 
@@ -114,15 +106,86 @@ boolean checkWin(GameSpace[][] gameBoard, char choice){
 
     // checkWin method checks the 2d array for a win after every play 
 
+    boolean proceed = false;
+
     // check every column
 
+    for (int i = 0; i < 5; i++){
+        for (int j = 0; j < 5; j++){
+            if (gameBoard[i][j].getSpaceUsed() == false) {
+                return false;
+            }
+
+            if (gameBoard[i][j].getMarkSpace() == choice) {
+                proceed = true;
+            }
+            else return false;
+
+            
+        }
+
+        if (proceed == true) return true;
+        else proceed = false;
+    }
+
     // check every row
+    proceed = false;
 
-    // check diagonal 
+    for (int i = 0; i < 5; i ++){
+        for (int j = 0; j < 5; j++){
+            if (gameBoard[j][i].getSpaceUsed() == false) {
+                return false;
+            }
 
-    gameOver = false;
+            if (gameBoard[j][i].getMarkSpace() == choice) {
+                proceed = true;
+            }
 
-    return gameOver;
+            else return false;
+        }
+        if (proceed == true) return true;
+        else proceed = false;
+    }
+
+    // check diagonal left to right
+    proceed = false;
+
+    for (int i = 0; i < 5; i++){
+        if (gameBoard[i][i].getSpaceUsed() == false){
+            return false;
+        }
+
+        if (gameBoard[i][i].getMarkSpace() == choice){
+            proceed = true;
+        }
+        else return false;
+
+    
+    }
+
+    if (proceed == true) return true;
+    else proceed = false;
+
+    // check diagonal right to left
+
+    for (int i = 4; i >= 0; i--){
+        for (int j = 0; j < 5; j++){
+            if (gameBoard[i][j].getSpaceUsed() == false){
+                return false;
+            }
+
+            if (gameBoard[i][j].getMarkSpace() == choice){
+                proceed = true;
+            }
+            else return false;
+
+        }
+    }
+
+    if (proceed == true) return true;
+    else return false;
+
+    
 }
 boolean checkSpace(GameSpace[][] gameBoard, int column, int row){
 
