@@ -94,6 +94,7 @@ void playGame(GameSpace[][] gameBoard){
         // check for a win, call checkWin method
 
         gameOver = checkWin(gameBoard, choice);
+        spaceUsed = false;
 
     }
 
