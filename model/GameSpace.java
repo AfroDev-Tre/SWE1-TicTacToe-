@@ -1,7 +1,9 @@
+package model;
 public class GameSpace {
 
     private int x;
     private int y;
+    private int spaceNo;
     private boolean spaceUsed;
     private char markSpace;
 
@@ -20,6 +22,10 @@ public class GameSpace {
 
     public void setMarkSpace(char markSpace) {
         this.markSpace = markSpace;
+    }
+
+    public void setSpaceNo(int spaceNo) {
+        this.spaceNo = spaceNo;
     }
 
     public void setX(int x) {
@@ -43,6 +49,9 @@ public class GameSpace {
 
     public char getMarkSpace() {
         return markSpace;
+    }
+    public int getSpaceNo() {
+        return spaceNo;
     }
     
 }

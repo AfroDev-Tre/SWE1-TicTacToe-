@@ -1,5 +1,4 @@
-
-
+import model.GameBoard;
 
 class Main {
 

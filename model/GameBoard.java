@@ -1,10 +1,20 @@
+package model;
 import java.util.Scanner;
 
 public class GameBoard {
 
     boolean gameOver = false;
-    int row;
-    int column;
+    
+    private Player player1 = new Player();
+    private Player player2 = new Player();
+    private int column;
+    private int row;
+    private boolean spaceUsed = false;
+    private char choice;
+    
+
+    Scanner userInput = new Scanner(System.in);
+
 
 public GameBoard(){
 
@@ -18,23 +28,18 @@ public void init(){
 
 
     // initialize tic-tac-toe board
+
+    
    for(int i = 0; i < 5; i++){
        for(int j = 0; j < 5; j++){
 
         gameBoard[i][j] = new GameSpace();
-        gameBoard[i][j].setX(i);
-        gameBoard[i][j].setY(j);
         
-        System.out.println(gameBoard[i][j].getX() + " ");
-        System.out.println(gameBoard[i][j].getY() + " ");
-        System.out.println(gameBoard[i][j].getSpaceUsed() + " ");
         
        } 
    } // end of both for loops
 
-   // create 2 players
-   Player player1 = new Player();
-   Player player2 = new Player();
+   
 
    player1.setPlayerChoice('X');
    player2.setPlayerChoice('O');
@@ -55,32 +60,42 @@ public void init(){
 
 void playGame(GameSpace[][] gameBoard){
 
-    // until the game is developed further, player1 is x and player 2 is o
-    // use a while loop to continue game play
+    // player picks space on board
+    // call function to see if space is available 
+    // if space is available, mark space and check for win
+    // if space is occuped, prompt user again
 
-    
+    // once gui is created, this should be under controller for game logic
 
     while (gameOver == false){
 
         displayBoard(gameBoard);
 
-        Scanner userInput = new Scanner(System.in);
+        // internal loop for player 
 
-        System.out.println("Player1, enter the column: ");
+        while (spaceUsed == false){
+
+        System.out.println("Enter column no: ");
         column = userInput.nextInt();
 
-        System.out.println("Player1, enter the row: ");
+        System.out.println("Enter row no: ");
         row = userInput.nextInt();
 
-        userInput.close();
+        spaceUsed = checkSpace(gameBoard, column, row);
 
-        boolean proceed = checkSpace(gameBoard, column, row);
+        }
 
-       while (proceed == false){
+        // mark space with an X or O (no player 1 or 2 yet)
+        System.out.println("Enter X or O to mark space: ");
+        choice = userInput.next().charAt(0);
 
-        System.out.println("Cannot use that space. ");
+        gameBoard[column][row].setMarkSpace(choice);
 
-       }
+        // check for a win, call checkWin method
+
+
+
+        
 
        
          
@@ -90,13 +105,20 @@ void playGame(GameSpace[][] gameBoard){
 
     }
 
-    System.out.println("Game Over");
+    
 
-}
+} // end of playGame method
 
-boolean checkWin(GameSpace[][] gameBoard){
+
+boolean checkWin(GameSpace[][] gameBoard, char choice){
 
     // checkWin method checks the 2d array for a win after every play 
+
+    // check every column
+
+    // check every row
+
+    // check diagonal 
 
     gameOver = false;
 
@@ -106,6 +128,8 @@ boolean checkSpace(GameSpace[][] gameBoard, int column, int row){
 
     // check to see if game piece is already there
     if (gameBoard[column][row].getSpaceUsed() == false){
+
+        // change boolean value to true
         gameBoard[column][row].setSpaceUsed(true);
         return true;
     }
@@ -117,38 +141,15 @@ boolean checkSpace(GameSpace[][] gameBoard, int column, int row){
 
 }
 
-void playerMove(GameSpace[][] gameBoard){
-
-    Scanner userInput = new Scanner(System.in);
-
-    System.out.println("Player1, enter the column: ");
-        column = userInput.nextInt();
-
-    System.out.println("Player1, enter the row: ");
-        row = userInput.nextInt();
-
-    userInput.close();
-
-
-}
-
 void displayBoard(GameSpace[][] gameBoard){
 
-    char displayPiece;
+    
 
         for (int m = 0; m < 5; m++){
 
             for (int n = 0; n < 5; n++){
 
-
-                if (gameBoard[m][n].getSpaceUsed() == false){
-                    System.out.print("__" + "|");
-                }
-
-                else {
-                    displayPiece = gameBoard[m][n].getMarkSpace();
-                    System.out.print(" " + displayPiece + " ");
-                }
+                    System.out.print("_" + " " + "|");
                 
             }
             System.out.println();
