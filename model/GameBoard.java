@@ -207,7 +207,7 @@ void displayBoard(GameSpace[][] gameBoard){
 
             for (int n = 0; n < 5; n++){
 
-                    System.out.print("_" + " " + "|");
+                    System.out.print("_" + gameBoard[m][n].getMarkSpace() + "|");
                 
             }
             System.out.println();
