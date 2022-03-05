@@ -5,8 +5,8 @@ public class GameBoard {
 
     boolean gameOver = false;
     
-    private Player player1 = new Player();
-    private Player player2 = new Player();
+    //private Player player1 = new Player();
+    //private Player player2 = new Player();
     private int column;
     private int row;
     private boolean spaceUsed = false;
@@ -18,6 +18,7 @@ public class GameBoard {
 
 public GameBoard(){
 
+    // once controller is made, this will pass the instance of the window
 
 }
 
@@ -39,18 +40,6 @@ public void init(){
        } 
    } // end of both for loops
 
-   
-
-   player1.setPlayerChoice('X');
-   player2.setPlayerChoice('O');
-
-   // this code is for testing, for display board and testing the 
-   // getters and setters for marking spaces with x's and o's
-
-   gameBoard[0][0].setSpaceUsed(true);
-   gameBoard[0][0].setMarkSpace('X');
-   gameBoard[0][1].setSpaceUsed(true);
-   gameBoard[0][1].setMarkSpace('O');
 
    playGame(gameBoard);
 
@@ -95,6 +84,10 @@ void playGame(GameSpace[][] gameBoard){
 
         gameOver = checkWin(gameBoard, choice);
         spaceUsed = false;
+
+        if (gameOver == true){
+            System.out.println("You win!");
+        }
 
     }
 
@@ -195,6 +188,7 @@ boolean checkSpace(GameSpace[][] gameBoard, int column, int row){
 
         // change boolean value to true
         gameBoard[column][row].setSpaceUsed(true);
+        
         return true;
     }
     else  {

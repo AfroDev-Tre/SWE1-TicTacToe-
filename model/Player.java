@@ -1,6 +1,8 @@
 package model;
 public class Player {
 
+    // Note: This is not working yet with gameplay
+
     private char playerChoice;
     private String playerName;
 
