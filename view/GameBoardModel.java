@@ -3,6 +3,8 @@ package view;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -13,6 +15,8 @@ public class GameBoardModel {
 
     private JFrame window;
     private JButton[] gameButtons;
+    private Icon emptySquare = new ImageIcon("images/resizeEmpty.png");
+
 
     public GameBoardModel(JFrame window){
         this.window = window;
@@ -30,7 +34,7 @@ public class GameBoardModel {
         gameButtons = new JButton[25];
 
         for (int j = 0; j < 25; j++){
-            gameButtons[j] = new JButton();
+            gameButtons[j] = new JButton(emptySquare);
             boardPanel.add(gameButtons[j]);
         }
 
