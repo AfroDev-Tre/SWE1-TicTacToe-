@@ -11,7 +11,7 @@ public class TTT {
     private int[] O_Storage;
     private boolean winner = false;
     private enum state {
-        Player1, Player2
+        Player1
     }
 
     void playGame() {
