@@ -72,26 +72,11 @@ public class GameBoardModel {
         quitButton.setEnabled(false);
         hVsAiButton.setEnabled(true);
         aIvSaIButton.setEnabled(true);
+        quitButton.addActionListener(buttonListener);
+        hVsAiButton.addActionListener(buttonListener);
+        aIvSaIButton.addActionListener(buttonListener);
 
         cp.add(BorderLayout.SOUTH, southPanel);
-
-        
-
-
-        
-
-
-
-        
-
-
-
-
-       
-
-        
-
-
 
         
     } // end of init
@@ -103,6 +88,23 @@ public class GameBoardModel {
     public void setGameState(GameState state){
         this.gameState = state;
     }
+
+    public JButton getQuitButton() {
+        return quitButton;
+    }
+
+    public JButton getaIvSaIButton() {
+        return aIvSaIButton;
+    }
+
+    public JButton gethVsAiButton() {
+        return hVsAiButton;
+    }
+
+    public JButton[] getGameButtons() {
+        return gameButtons;
+    }
+
 
     
 }

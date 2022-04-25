@@ -12,7 +12,7 @@ class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Tic-Tac-Toe");
-        window.setLocation(200,200);
+        window.setLocation(200,100);
 
         var game = new GameBoardModel(window);
         game.init();
