@@ -23,6 +23,8 @@ public class GamePlayListener implements ActionListener {
         
         JButton button = (JButton) e.getSource();
 
+        // button.setIcon(model.getxIcon());
+
         if (button == model.gethVsAiButton()){
 
             // create new human vs ai game
@@ -34,6 +36,10 @@ public class GamePlayListener implements ActionListener {
             for (var b:model.getGameButtons()){
                 b.setEnabled(true);
             }
+
+            
+
+            
 
 
 

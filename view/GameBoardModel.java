@@ -29,6 +29,7 @@ public class GameBoardModel {
     private JButton aIvSaIButton = new JButton("AI vs AI");
     private GameState gameState = GameState.CHOOSE;
     private Icon emptySquare = new ImageIcon("images/resizeEmpty.png");
+    private Icon xIcon = new ImageIcon("images/xIcon.png");
 
 
     public GameBoardModel(JFrame window){
@@ -103,6 +104,10 @@ public class GameBoardModel {
 
     public JButton[] getGameButtons() {
         return gameButtons;
+    }
+
+    public Icon getxIcon() {
+        return xIcon;
     }
 
 
