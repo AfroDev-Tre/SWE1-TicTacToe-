@@ -1,11 +1,8 @@
 package view;
 
-<<<<<<< HEAD
 import javax.swing.JPanel;
 import model.TTT;
-=======
 
->>>>>>> 116c6a5ce2a329e2b550a6ecc44841ebe635fbd0
 
 import controller.GamePlayListener;
 import model.TTT;

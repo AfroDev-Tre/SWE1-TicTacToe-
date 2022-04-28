@@ -1,6 +1,4 @@
-package model.client_server;
-
-
+package model.Client_Server;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;

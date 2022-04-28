@@ -8,6 +8,7 @@ public class TTT {
 
     private static Vector<String> X_Storage = new Vector<String>();
     private static Vector<String> O_Storage = new Vector<String>();
+    private static Vector<Integer> Chosen = new Vector<Integer>();
     private boolean is_X;
     private int AI_Choice;
     Random random = new Random();
@@ -53,8 +54,14 @@ public class TTT {
         }
     }
 
-    int AI_Selection() {
+    public int AI_Selection() {
         AI_Choice = random.nextInt(25);
+        if (Chosen.isEmpty() == false) {
+            while (Chosen.contains(AI_Choice) == true) {
+                AI_Choice = random.nextInt(25);
+            }
+        }
+        Chosen.add(AI_Choice);
         return AI_Choice;
     }
 
@@ -193,8 +200,4 @@ public class TTT {
     }
 
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 116c6a5ce2a329e2b550a6ecc44841ebe635fbd0

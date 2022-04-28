@@ -4,13 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 
 import model.TTT;
-import model.TTT.Player;
 import view.GameBoardModel;
-import model.HumanGame;
-import model.TTT;
 
 
 //import model.GameSpace;
@@ -35,19 +31,36 @@ public class GamePlayListener implements ActionListener {
 
         // button.setIcon(model.getxIcon());
 
-        if (button == model.gethVsAiButton()){
+        if (button == model.gethVsAiButton()){ //*******************Should be working now */
 
-            // create new human vs ai game
+            model.getTTT().playGame();
+            if (model.getxButton().isEnabled() == true) {
+                model.getTTT().setPlayer(TTT.Player.Human);
+                model.getTTT().getPlayer().setAssignment("X");
+            } else {
+                model.getTTT().setPlayer(TTT.Player.Human);
+                model.getTTT().getPlayer().setAssignment("O");
+            }
 
             model.getQuitButton().setEnabled(true);
             model.getaIvSaIButton().setEnabled(false);
             model.gethVsAiButton().setEnabled(false);
+            model.getxButton().setEnabled(false);
+            model.getoButton().setEnabled(false);
 
             for (var b:model.getGameButtons()){
                 b.setEnabled(true);
             }
 
-            if (model.getP1Button().isSelected()){
+            if (model.getP1Button().isEnabled() == false) {
+                model.getTTT().AI_Selection();
+                model.getTTT().getAI_Choice();
+            }
+
+            System.out.println("Current Player Is " + model.getTTT().getPlayer() + " and is assigned to " 
+                + model.getTTT().getPlayer().getAssignment());
+
+            /*if (model.getP1Button().isSelected()){
 
                 // assign human to play first and assign to x or o
             }
@@ -78,7 +91,7 @@ public class GamePlayListener implements ActionListener {
             } */
 
             // perhaps we should do a while loop here 
-            // while (getWinner() == false)
+            // while (getWinner() == false)*/
 
 
 
