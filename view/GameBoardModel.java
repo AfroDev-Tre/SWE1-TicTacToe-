@@ -14,10 +14,13 @@ import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 
 
+
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
+
 
 
 public class GameBoardModel {
@@ -59,8 +62,10 @@ public class GameBoardModel {
         gameButtons = new JButton[25];
 
         for (int j = 0; j < 25; j++){
-            gameButtons[j] = new JButton(emptySquare);
+            //gameButtons[j] = new JButton(emptySquare);
+            gameButtons[j] = new JButton();
             boardPanel.add(gameButtons[j]);
+            gameButtons[j].setFont(new Font("Serif", Font.BOLD, 115));
             gameButtons[j].addActionListener(buttonListener);
         }
 
@@ -82,13 +87,13 @@ public class GameBoardModel {
         south1.setLayout(new FlowLayout());
         
 
-        south1.add(quitButton);
+        //south1.add(quitButton);
         south1.add(hVsAiButton);
         south1.add(aIvSaIButton);
-        quitButton.setEnabled(false);
+        //quitButton.setEnabled(false);
         hVsAiButton.setEnabled(true);
         aIvSaIButton.setEnabled(true);
-        quitButton.addActionListener(buttonListener);
+        //quitButton.addActionListener(buttonListener);
         hVsAiButton.addActionListener(buttonListener);
         aIvSaIButton.addActionListener(buttonListener);
         southPanel.add(south1);

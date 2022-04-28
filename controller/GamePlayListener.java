@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 
 
 import view.GameBoardModel;
+import model.HumanGame;
+import model.TTT;
 
 
 //import model.GameSpace;
@@ -16,6 +18,7 @@ public class GamePlayListener implements ActionListener {
 
     private GameBoardModel model;
     //private GameSpace[] gameSpaces;
+    private TTT tGame;
 
 
     public GamePlayListener(GameBoardModel model){
@@ -49,10 +52,14 @@ public class GamePlayListener implements ActionListener {
             }
 
             else {
-                
-                // they play second 
+
+                // they play second and assign to x or so
 
             }
+
+            
+
+           
 
             
 /*
@@ -69,6 +76,11 @@ public class GamePlayListener implements ActionListener {
                 }
             } */
 
+            // perhaps we should do a while loop here 
+            // while (getWinner() == false)
+
+
+
 
 
             
@@ -78,18 +90,6 @@ public class GamePlayListener implements ActionListener {
 
 
             
-        } else if (button == model.getQuitButton()){
-
-            model.getQuitButton().setEnabled(false);
-            model.getaIvSaIButton().setEnabled(true);
-            model.gethVsAiButton().setEnabled(true);
-
-            for (var b:model.getGameButtons()){
-                b.setEnabled(false);
-
-            }
-
-            // maybe also reset images in JButton ImageIcon to be blank squares
         } else if (button == model.getaIvSaIButton()){
 
             model.getQuitButton().setEnabled(true);
@@ -103,7 +103,18 @@ public class GamePlayListener implements ActionListener {
         } else {
 
             button.setEnabled(false);
-            button.setIcon(model.getxIcon());
+
+            for (int k=0; k < 25; k++){
+
+                if (button == model.getGameButtons()[k]){
+
+                    //model.getGameButtons()[k].setEnabled(false);
+                    model.getGameButtons()[k].setText("X");
+                    model.getGameButtons()[k].setEnabled(false);
+                    System.out.println(model.getGameButtons()[k]);
+                }
+            }
+            
         }
 
         
