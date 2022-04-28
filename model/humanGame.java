@@ -1,5 +1,13 @@
 package model;
 
-public class humanGame {
+public class HumanGame {
+
+    public HumanGame(){
+
+        
+    }
+
+
+    
     
 }

@@ -9,14 +9,20 @@ import javax.swing.JFrame;
 
 import view.GameBoardModel;
 
+
+//import model.GameSpace;
+
 public class GamePlayListener implements ActionListener {
 
     private GameBoardModel model;
+    //private GameSpace[] gameSpaces;
 
 
     public GamePlayListener(GameBoardModel model){
         this.model = model;
     }
+
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -36,6 +42,34 @@ public class GamePlayListener implements ActionListener {
             for (var b:model.getGameButtons()){
                 b.setEnabled(true);
             }
+
+            if (model.getP1Button().isSelected()){
+
+                // assign human to play first and assign to x or o
+            }
+
+            else {
+                
+                // they play second 
+
+            }
+
+            
+/*
+            HumanGame hgame = new HumanGame();
+            
+            // generate gameSpace objects to go with game 
+            for(int i = 0; i < 25; i++){
+                gameSpaces[i] = new GameSpace();
+            }
+
+            for (int j=0; j<25; j++){
+                if(e.getSource() == model.getGameButtons()){
+                    
+                }
+            } */
+
+
 
             
 
@@ -66,7 +100,12 @@ public class GamePlayListener implements ActionListener {
                 b.setEnabled(true);
             }
 
+        } else {
+
+            button.setEnabled(false);
+            button.setIcon(model.getxIcon());
         }
+
         
     }
 
