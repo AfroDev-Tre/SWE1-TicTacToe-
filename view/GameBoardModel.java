@@ -1,8 +1,9 @@
 package view;
 
-import javax.swing.JPanel;
+
 
 import controller.GamePlayListener;
+import model.TTT;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -10,6 +11,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
+import javax.swing.JPanel;
 
 
 import java.awt.Container;
@@ -23,6 +25,8 @@ public class GameBoardModel {
     public enum GameState {
         PLAYER1, PLAYER2, AI, CHOOSE
     }
+
+    private TTT ttt;
 
     private JFrame window;
     private JButton[] gameButtons;
