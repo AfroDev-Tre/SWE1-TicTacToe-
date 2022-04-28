@@ -1,8 +1,10 @@
+import view.GameBoardModel;
+
 import javax.swing.JFrame;
 
-import model.GameBoard;
-
 class Main {
+
+
     public static void main(String[] args){
 
         JFrame window = new JFrame();
@@ -12,6 +14,11 @@ class Main {
 
         var game = new GameBoardModel(window);
         game.init();
+
+        window.setResizable(false);
+        window.pack();
+        window.setVisible(true);
+      
 
     }
 }
