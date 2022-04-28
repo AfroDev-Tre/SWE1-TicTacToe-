@@ -13,14 +13,19 @@ public class TTT {
     Random random = new Random();
     private static boolean winner = false;
 
-    private enum Player {
+    public enum Player {
         Choose, Human, AI, AI2, Draw;
-        private String assignment;
-        /******************************** May Need Setter & Getter ********************************/
+        public String assignment;
+        public void setAssignment(String x) {
+            assignment = x;
+        }
+        public String getAssignment() {
+            return assignment;
+        }
     }
     private Player player;
 
-    void playGame() {
+    public void playGame() {
         for (int i = 0; i < 25; i++) {
             X_Storage.add(null);
         }
@@ -155,7 +160,7 @@ public class TTT {
         return AI_Choice;
     }
 
-    void setPlayer(Player p) {
+    public void setPlayer(Player p) {
         this.player = p;
     }
     
@@ -182,5 +187,10 @@ public class TTT {
     public static void setWinner_TRUE() {
         winner = true;
     }
+
+    public boolean getWinner() {
+        return winner;
+    }
+
 
 }
