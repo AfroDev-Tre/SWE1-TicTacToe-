@@ -31,7 +31,7 @@ public class GameBoardModel {
         PLAYER1, PLAYER2, AI, CHOOSE
     }
 
-    private TTT ttt;
+    private model.TTT ttt;
 
     private JFrame window;
     private JButton[] gameButtons;
@@ -169,6 +169,10 @@ public class GameBoardModel {
 
     public TTT getTTT() {
         return ttt;
+    }
+
+    public void setTTT(TTT ttt) {
+        this.ttt = ttt;
     }
 
     

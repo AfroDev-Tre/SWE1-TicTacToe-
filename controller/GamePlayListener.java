@@ -15,14 +15,12 @@ public class GamePlayListener implements ActionListener {
 
     private GameBoardModel model;
     //private GameSpace[] gameSpaces;
-    private TTT tGame;
+    //private TTT tGame;
 
 
     public GamePlayListener(GameBoardModel model){
         this.model = model;
     }
-
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -33,13 +31,16 @@ public class GamePlayListener implements ActionListener {
 
         if (button == model.gethVsAiButton()){ //*******************Should be working now */
 
-            model.getTTT().playGame();
+            var ttt = new TTT();
+            model.setTTT(ttt);
+
+            ttt.playGame();
             if (model.getxButton().isEnabled() == true) {
-                model.getTTT().setPlayer(TTT.Player.Human);
-                model.getTTT().getPlayer().setAssignment("X");
+                ttt.setPlayer(TTT.Player.Human);
+                ttt.getPlayer().setAssignment("X");
             } else {
-                model.getTTT().setPlayer(TTT.Player.Human);
-                model.getTTT().getPlayer().setAssignment("O");
+                ttt.setPlayer(TTT.Player.Human);
+                ttt.getPlayer().setAssignment("O");
             }
 
             model.getQuitButton().setEnabled(true);
@@ -47,18 +48,20 @@ public class GamePlayListener implements ActionListener {
             model.gethVsAiButton().setEnabled(false);
             model.getxButton().setEnabled(false);
             model.getoButton().setEnabled(false);
+            model.getP1Button().setEnabled(false);
+            model.getP2Button().setEnabled(false);
 
             for (var b:model.getGameButtons()){
                 b.setEnabled(true);
             }
 
             if (model.getP1Button().isEnabled() == false) {
-                model.getTTT().AI_Selection();
-                model.getTTT().getAI_Choice();
+                ttt.AI_Selection();
+                ttt.getAI_Choice();
             }
 
-            System.out.println("Current Player Is " + model.getTTT().getPlayer() + " and is assigned to " 
-                + model.getTTT().getPlayer().getAssignment());
+            System.out.println("Current Player Is " + ttt.getPlayer() + " and is assigned to " 
+                + ttt.getPlayer().getAssignment());
 
             /*if (model.getP1Button().isSelected()){
 
