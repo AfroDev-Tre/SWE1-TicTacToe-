@@ -29,13 +29,13 @@ public class GamePlayListener implements ActionListener {
 
         // button.setIcon(model.getxIcon());
 
-        if (button == model.gethVsAiButton()){ //*******************Should be working now */
+        if (button == model.gethVsAiButton()){
 
             var ttt = new TTT();
             model.setTTT(ttt);
 
             ttt.playGame();
-            if (model.getxButton().isEnabled() == true) {
+            if (model.getxButton().isSelected() == true) {
                 ttt.setPlayer(TTT.Player.Human);
                 ttt.getPlayer().setAssignment("X");
             } else {
