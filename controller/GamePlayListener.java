@@ -2,6 +2,12 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.io.*;
 
 import javax.swing.JButton;
 
@@ -109,20 +115,80 @@ public class GamePlayListener implements ActionListener {
             
         } else if (button == model.getaIvSaIButton()){
 
-            model.getTTT().playGame();
-            model.getTTT().setPlayer(TTT.Player.AI);
-            model.getTTT().getPlayer().setAssignment("X");
-            model.getTTT().setPlayer(TTT.Player.AI2);
-            model.getTTT().getPlayer().setAssignment("O");
+            var ttt = new TTT();
+            model.setTTT(ttt);
 
-            //while (model.getTTT().getWinner() == false || )
+            ttt.playGame();
+            if (model.getP1Button().isSelected() == true) {
+                if (model.getxButton().isSelected() == true) {
+                    ttt.setPlayer(TTT.Player.AI);
+                    ttt.getPlayer().setAssignment("X");
+                } else {
+                    ttt.setPlayer(TTT.Player.AI);
+                    ttt.getPlayer().setAssignment("O");
+                }
+            } else {
+                if (model.getxButton().isSelected() == true) {
+                    ttt.setPlayer(TTT.Player.AI2);
+                    ttt.getPlayer().setAssignment("X");
+                } else {
+                    ttt.setPlayer(TTT.Player.AI2);
+                    ttt.getPlayer().setAssignment("O");
+                }
+            }
 
             model.getQuitButton().setEnabled(true);
             model.getaIvSaIButton().setEnabled(false);
             model.gethVsAiButton().setEnabled(false);
+            model.getxButton().setEnabled(false);
+            model.getoButton().setEnabled(false);
+            model.getP1Button().setEnabled(false);
+            model.getP2Button().setEnabled(false);
 
-            for (var b:model.getGameButtons()){
+            for (var b:model.getGameButtons()){  //******************************************************************** */
                 b.setEnabled(true);
+            }
+
+            if (model.getP1Button().isSelected() == true) {
+                try {
+                    ServerSocket server = new ServerSocket(6666);
+                    Socket s = server.accept();
+
+                    DataInputStream input = new DataInputStream(s.getInputStream());
+                    DataOutputStream output = new DataOutputStream(s.getOutputStream());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+                    int text=0, text2=0;
+                    while(ttt.getWinner() == false || ttt.getInputs() < 25) {
+                        text = input.readInt();
+                        text2 = ttt.AI_Selection();
+                        output.writeInt(text2);
+                        output.flush();
+                        Thread.sleep(5000);
+                    }
+                    input.close();
+                    s.close();
+                    server.close();
+                    }catch(Exception p){System.out.println(e);}
+                } else {
+                    try{
+                    Socket client =new Socket("localhost",6666);
+
+                    DataInputStream input = new DataInputStream(client.getInputStream());
+                    DataOutputStream output = new DataOutputStream(client.getOutputStream());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+                    int text=0, text2=0;
+                    while(ttt.getWinner() == false || ttt.getInputs() < 25) {
+                        text = input.readInt();
+                        text2 = ttt.AI_Selection();
+                        output.writeInt(text2);
+                        output.flush();
+                        Thread.sleep(5000);
+                    }
+                    output.close();
+                    client.close();
+                }catch(Exception p){System.out.println(p);}
             }
 
         } else {

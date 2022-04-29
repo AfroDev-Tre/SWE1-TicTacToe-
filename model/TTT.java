@@ -9,7 +9,7 @@ public class TTT {
     private static Vector<String> X_Storage = new Vector<String>();
     private static Vector<String> O_Storage = new Vector<String>();
     private static Vector<Integer> Chosen = new Vector<Integer>();
-    private boolean is_X;
+    private int inputs;
     private int AI_Choice;
     Random random = new Random();
     private static boolean winner = false;
@@ -36,6 +36,7 @@ public class TTT {
         player.Human.assignment = null;
         player.AI.assignment = null;
         player.AI2.assignment = null;
+        inputs = 0;
     }
 
     void setInput(Player player, int x) {
@@ -52,6 +53,7 @@ public class TTT {
         } else if (player == Player.AI2 && player.AI2.assignment == "X") {
             getO_Storage().set(AI_Selection(), "O");
         }
+        inputs++;
     }
 
     public int AI_Selection() {
@@ -62,6 +64,7 @@ public class TTT {
             }
         }
         Chosen.add(AI_Choice);
+        inputs++;
         return AI_Choice;
     }
 
@@ -183,14 +186,6 @@ public class TTT {
         return X_Storage;
     }
 
-    public void setIs_X(boolean x) {
-        is_X = x;
-    }
-
-    public boolean getis_X() {
-        return is_X;
-    }
-
     public static void setWinner_TRUE() {
         winner = true;
     }
@@ -199,5 +194,8 @@ public class TTT {
         return winner;
     }
 
+    public int getInputs() {
+        return inputs;
+    }
 
 }
