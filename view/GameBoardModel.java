@@ -67,12 +67,13 @@ public class GameBoardModel {
             //gameButtons[j] = new JButton(emptySquare);
             gameButtons[j] = new JButton();
             boardPanel.add(gameButtons[j]);
-            gameButtons[j].setFont(new Font("Serif", Font.BOLD, 115));
+            gameButtons[j].setFont(new Font("Serif", Font.BOLD, 50));
             gameButtons[j].addActionListener(buttonListener);
         }
 
         for (var b: gameButtons){
             b.setEnabled(false);
+            b.setText("[]");
         }
 
         

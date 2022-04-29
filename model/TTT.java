@@ -39,20 +39,21 @@ public class TTT {
         inputs = 0;
     }
 
-    void setInput(Player player, int x) {
-        if (player == Player.Human  && player.Human.assignment == "X") {
-            getX_Storage().set(x - 1, "X");
-        } else if (player == Player.Human && player.Human.assignment == "O") {
-            getO_Storage().set(x - 1, "O");
-        } else if (player == Player.AI && player.AI.assignment == "X") {
-            getX_Storage().set(AI_Selection(), "X");
-        } else if (player == Player.AI && player.AI.assignment == "O") {
-            getO_Storage().set(AI_Selection(), "O");
-        } else if (player == Player.AI2 && player.AI2.assignment == "X") {
-            getX_Storage().set(AI_Selection(), "X");
-        } else if (player == Player.AI2 && player.AI2.assignment == "X") {
-            getO_Storage().set(AI_Selection(), "O");
+    public void setInput(Player player, int x) {
+        if (player == Player.Human  && player.Human.assignment == "x") {
+            getX_Storage().set(x, "x");
+        } else if (player == Player.Human && player.Human.assignment == "o") {
+            getO_Storage().set(x, "o");
+        } else if (player == Player.AI && player.AI.assignment == "x") {
+            getX_Storage().set(AI_Selection(), "x");
+        } else if (player == Player.AI && player.AI.assignment == "o") {
+            getO_Storage().set(AI_Selection(), "o");
+        } else if (player == Player.AI2 && player.AI2.assignment == "x") {
+            getX_Storage().set(AI_Selection(), "x");
+        } else if (player == Player.AI2 && player.AI2.assignment == "o") {
+            getO_Storage().set(AI_Selection(), "o");
         }
+        Chosen.add(x);
         inputs++;
     }
 
@@ -68,10 +69,10 @@ public class TTT {
         return AI_Choice;
     }
 
-    static void checkWinner(Player player) {
+    public void checkWinner(Player player) {
         String line = null;
 
-        if (player.assignment == "X") {
+        if (player.assignment == "x") {
             for (int a = 0; a < 12; a++) {
                 switch(a) {
                     case 0:
@@ -112,11 +113,11 @@ public class TTT {
                         break;
                 }
 
-                if (line.equals("XXXXX")) {
+                if (line.equals("xxxxx")) {
                     setWinner_TRUE();
                 }
             }
-        } else if (player.assignment == "O") {
+        } else if (player.assignment == "o") {
             for (int a = 0; a < 12; a++) {
                 switch(a) {
                     case 0:
@@ -157,7 +158,7 @@ public class TTT {
                         break;
                 }
 
-                if (line.equals("OOOOO")) {
+                if (line.equals("ooooo")) {
                     setWinner_TRUE();
                 }
             }
@@ -165,6 +166,7 @@ public class TTT {
 
 
     }
+
 
     public int getAI_Choice() {
         return AI_Choice;

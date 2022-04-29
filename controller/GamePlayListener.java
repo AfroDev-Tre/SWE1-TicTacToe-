@@ -12,6 +12,7 @@ import java.io.*;
 import javax.swing.JButton;
 
 import model.TTT;
+import model.TTT.Player;
 import view.GameBoardModel;
 
 
@@ -21,8 +22,7 @@ public class GamePlayListener implements ActionListener {
 
     private GameBoardModel model;
     //private GameSpace[] gameSpaces;
-    //private TTT tGame;
-
+    //private TTT ttt;
 
     public GamePlayListener(GameBoardModel model){
         this.model = model;
@@ -38,15 +38,65 @@ public class GamePlayListener implements ActionListener {
         if (button == model.gethVsAiButton()){
 
             var ttt = new TTT();
-            model.setTTT(ttt);
 
             ttt.playGame();
             if (model.getxButton().isSelected() == true) {
                 ttt.setPlayer(TTT.Player.Human);
-                ttt.getPlayer().setAssignment("X");
+                ttt.getPlayer().setAssignment("x");
+                ttt.setPlayer(TTT.Player.AI);
+                ttt.getPlayer().setAssignment("o");
             } else {
                 ttt.setPlayer(TTT.Player.Human);
-                ttt.getPlayer().setAssignment("O");
+                ttt.getPlayer().setAssignment("o");
+                ttt.setPlayer(TTT.Player.AI);
+                ttt.getPlayer().setAssignment("x");
+            }
+
+            model.getQuitButton().setEnabled(true);
+            model.getaIvSaIButton().setEnabled(false);
+            model.gethVsAiButton().setEnabled(false);
+            model.getxButton().setEnabled(false);
+            model.getoButton().setEnabled(false);
+            model.getP1Button().setEnabled(false);
+            model.getP2Button().setEnabled(false);
+
+            for (var b:model.getGameButtons()){
+                b.setEnabled(true);
+            }
+
+            if (model.getP1Button().isSelected() == false) {
+                ttt.AI_Selection();
+                model.setTTT(ttt);
+                model.getGameButtons()[ttt.getAI_Choice()].doClick();
+                ttt.setPlayer(TTT.Player.Human);
+            } else {
+                ttt.setPlayer(TTT.Player.Human);
+                model.setTTT(ttt);
+            }
+
+            model.setTTT(ttt);
+            
+        } else if (button == model.getaIvSaIButton()){
+
+            var ttt = new TTT();
+
+            ttt.playGame();
+            if (model.getP1Button().isSelected() == true) {
+                if (model.getxButton().isSelected() == true) {
+                    ttt.setPlayer(TTT.Player.Human);
+                    ttt.getPlayer().setAssignment("x");
+                } else {
+                    ttt.setPlayer(TTT.Player.Human);
+                    ttt.getPlayer().setAssignment("o");
+                }
+            } else {
+                if (model.getxButton().isSelected() == true) {
+                    ttt.setPlayer(TTT.Player.AI);
+                    ttt.getPlayer().setAssignment("x");
+                } else {
+                    ttt.setPlayer(TTT.Player.AI);
+                    ttt.getPlayer().setAssignment("o");
+                }
             }
 
             model.getQuitButton().setEnabled(true);
@@ -62,155 +112,88 @@ public class GamePlayListener implements ActionListener {
             }
 
             if (model.getP1Button().isEnabled() == false) {
-                ttt.AI_Selection();
-                ttt.getAI_Choice();
-            }
-
-            System.out.println("Current Player Is " + ttt.getPlayer() + " and is assigned to " 
-                + ttt.getPlayer().getAssignment());
-
-            /*if (model.getP1Button().isSelected()){
-
-                // assign human to play first and assign to x or o
-            }
-
-            else {
-
-                // they play second and assign to x or so
-
-            }
-
-            
-
-           
-
-            
-/*
-            HumanGame hgame = new HumanGame();
-            
-            // generate gameSpace objects to go with game 
-            for(int i = 0; i < 25; i++){
-                gameSpaces[i] = new GameSpace();
-            }
-
-            for (int j=0; j<25; j++){
-                if(e.getSource() == model.getGameButtons()){
-                    
-                }
-            } */
-
-            // perhaps we should do a while loop here 
-            // while (getWinner() == false)*/
-
-
-
-
-
-            
-
-            
-
-
-
-            
-        } else if (button == model.getaIvSaIButton()){
-
-            var ttt = new TTT();
-            model.setTTT(ttt);
-
-            ttt.playGame();
-            if (model.getP1Button().isSelected() == true) {
-                if (model.getxButton().isSelected() == true) {
-                    ttt.setPlayer(TTT.Player.AI);
-                    ttt.getPlayer().setAssignment("X");
-                } else {
-                    ttt.setPlayer(TTT.Player.AI);
-                    ttt.getPlayer().setAssignment("O");
-                }
-            } else {
-                if (model.getxButton().isSelected() == true) {
-                    ttt.setPlayer(TTT.Player.AI2);
-                    ttt.getPlayer().setAssignment("X");
-                } else {
-                    ttt.setPlayer(TTT.Player.AI2);
-                    ttt.getPlayer().setAssignment("O");
-                }
-            }
-
-            model.getQuitButton().setEnabled(true);
-            model.getaIvSaIButton().setEnabled(false);
-            model.gethVsAiButton().setEnabled(false);
-            model.getxButton().setEnabled(false);
-            model.getoButton().setEnabled(false);
-            model.getP1Button().setEnabled(false);
-            model.getP2Button().setEnabled(false);
-
-            for (var b:model.getGameButtons()){  //******************************************************************** */
-                b.setEnabled(true);
-            }
-
-            if (model.getP1Button().isSelected() == true) {
                 try {
                     ServerSocket server = new ServerSocket(6666);
                     Socket s = server.accept();
-
+                    
                     DataInputStream input = new DataInputStream(s.getInputStream());
-                    DataOutputStream output = new DataOutputStream(s.getOutputStream());
+                    
+                    DataOutputStream output = new DataOutputStream(s.getOutputStream());  
                     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-                    int text=0, text2=0;
-                    while(ttt.getWinner() == false || ttt.getInputs() < 25) {
-                        text = input.readInt();
-                        text2 = ttt.AI_Selection();
-                        output.writeInt(text2);
-                        output.flush();
-                        Thread.sleep(5000);
+                    
+                    String text="", text2="";  
+                    while(!text.equals("stop")){  
+                    text=input.readUTF();  
+                    System.out.println("From Client: "+ text);  
+                    text2=reader.readLine();  
+                    output.writeUTF(text2);  
+                    output.flush(); 
                     }
-                    input.close();
-                    s.close();
+            
+                    input.close();  
+                    s.close();  
                     server.close();
-                    }catch(Exception p){System.out.println(e);}
-                } else {
-                    try{
+                    }catch(Exception c){System.out.println(c);}
+            } else {
+                try{	
                     Socket client =new Socket("localhost",6666);
-
-                    DataInputStream input = new DataInputStream(client.getInputStream());
+                    
+                    DataInputStream input = new DataInputStream(client.getInputStream());	
                     DataOutputStream output = new DataOutputStream(client.getOutputStream());
+                    
                     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-                    int text=0, text2=0;
-                    while(ttt.getWinner() == false || ttt.getInputs() < 25) {
-                        text = input.readInt();
-                        text2 = ttt.AI_Selection();
-                        output.writeInt(text2);
-                        output.flush();
-                        Thread.sleep(5000);
-                    }
-                    output.close();
+                    
+                    String text = "",text2 = "";  
+                    while(!text.equals("stop")){  
+                    text=reader.readLine();  
+                    output.writeUTF(text);  
+                    output.flush();  
+                    text2=input.readUTF();  
+                    System.out.println("From Server: " + text2);  
+                    }  
+                      
+                    output.close();  
                     client.close();
-                }catch(Exception p){System.out.println(p);}
+                    
+                    }catch(Exception c){System.out.println(c);}
             }
 
         } else {
 
-            button.setEnabled(false);
+            String playerChoice;
 
             for (int k=0; k < 25; k++){
 
                 if (button == model.getGameButtons()[k]){
 
-                    //model.getGameButtons()[k].setEnabled(false);
-                    model.getGameButtons()[k].setText("X");
+                    playerChoice = model.getTTT().getPlayer().getAssignment();
                     model.getGameButtons()[k].setEnabled(false);
-                    System.out.println(model.getGameButtons()[k]);
+                    model.getGameButtons()[k].setText(playerChoice);
+                    model.getTTT().setInput(model.getTTT().getPlayer(), k);
+                    model.getTTT().checkWinner(model.getTTT().getPlayer());
+
+                    break;
                 }
             }
+
+            if (model.getTTT().getWinner() == true) {
+                for (int i = 0; i < 25; i++) {
+                    if (model.getGameButtons()[i].isEnabled() == true) {
+                        model.getGameButtons()[i].setEnabled(false);
+                    }
+                }
+                System.out.println(model.getTTT().getPlayer().getAssignment() + " Wins!");
+            }
+
+
+            if(model.getTTT().getPlayer() == TTT.Player.AI) {
+                model.getTTT().setPlayer(TTT.Player.Human);
+            } else {
+                model.getTTT().AI_Selection();
+                model.getTTT().setPlayer(TTT.Player.AI);
+                model.getGameButtons()[model.getTTT().getAI_Choice()].doClick();
+            }
             
-        }
-
-        
-    }
-
-
-    
+        } 
+    }    
 }
